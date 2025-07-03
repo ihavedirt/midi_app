@@ -79,6 +79,7 @@ export default function Dashboard() {
           alignItems: 'center',      // Centers vertically
           position: 'relative',      // For percentage-based height
           overflow: 'hidden', // Prevents overflow
+          bgcolor: '#808080',
         }}
       >
         {/* Instrument selector on the left */}
@@ -99,9 +100,9 @@ export default function Dashboard() {
         <Box
           sx={{
             display: 'flex',
-            height: '66.66%',
+            height: '75%',
             position: 'absolute',
-            right: isPanelOpen ? '0' : '-336px', // Entire drawer slides in/out
+            right: isPanelOpen ? '0' : '-536px', // Entire drawer slides in/out
             transition: 'right 0.3s ease',
               '&:hover': {
                 transform: !isPanelOpen ? 'translateX(-12px)' : 'none', // Only when closed
@@ -129,7 +130,7 @@ export default function Dashboard() {
               writingMode: 'vertical-rl',
               textOrientation: 'mixed',
               transform: 'rotate(180deg)',
-              color: '#909090',
+              color: '#A0A0A0',
               padding: '8px 0',
             }}>
               Instrument Settings
@@ -139,7 +140,7 @@ export default function Dashboard() {
           {/* Panel content */}
           <Box
             sx={{
-              width: '300px',
+              width: '500px',
               backgroundColor: '#505050',
               borderLeft: '1px solid #ddd',
               padding: '16px',
