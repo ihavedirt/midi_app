@@ -2,8 +2,8 @@ import React from "react";
 import "../styles/Keyboard.css";
 
 const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-const startOctave = 1;
-const endOctave = 7;
+const startOctave = 2;
+const endOctave = 5;
 
 function generateKeys() {
   const keys = [];
