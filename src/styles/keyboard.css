@@ -1,0 +1,52 @@
+.keyboard {
+  display: flex;
+  position: relative;
+  height: 180px;
+  user-select: none;
+}
+
+.key {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border: 1px solid #333;
+  box-sizing: border-box;
+  font-size: 12px;
+  font-family: sans-serif;
+}
+
+.white {
+  background: white;
+  width: 40px;
+  height: 100%;
+  z-index: 1;
+}
+
+.black {
+  background: black;
+  width: 28px;
+  height: 60%;
+  margin-left: -14px;
+  margin-right: -14px;
+  z-index: 2;
+}
+
+.active.white {
+  background: #cce5ff;
+}
+
+.active.black {
+  background: #5591ff;
+}
+
+.label {
+  padding: 4px;
+  color: black;
+  font-weight: bold;
+  z-index: 3;
+}
+
+.black .label {
+  color: white;
+}
