@@ -3,7 +3,7 @@ import "../styles/Keyboard.css";
 
 const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 const startOctave = 2;
-const endOctave = 5;
+const endOctave = 6;
 
 function generateKeys() {
   const keys = [];

@@ -13,10 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Midi', 'Games', 'About', 'Support'];
-const settings = ['Account', 'Settings', 'Logout'];
-const companyName = 'MIDIPark';
-
+const pages = ['Products', 'Pricing', 'Blog'];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -57,7 +55,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            {companyName}
+            LOGO
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -100,7 +98,6 @@ function ResponsiveAppBar() {
             noWrap
             component="a"
             href="#app-bar-with-responsive-menu"
-
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -112,7 +109,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            {companyName}
+            LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

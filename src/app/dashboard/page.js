@@ -1,9 +1,10 @@
 'use client';
 import { useEffect, useState } from "react";
 import * as Tone from "tone";
-import { Grid, Box, Button } from "@mui/material";
-import Keyboard from "/src/components/Keyboard";
-import ResponsiveAppBar from '/src/components/ResponsiveAppBar';
+import { Grid, Box, Button, List, ListItem, ListItemText, Divider } from "@mui/material";
+import Keyboard from "@/components/Keyboard";
+import ResponsiveAppBar from "@/components/ResponsiveAppBar";
+import InstrumentSelector from "@/components/InstrumentSelector";
 
 export default function Dashboard() {
 
@@ -64,8 +65,8 @@ export default function Dashboard() {
       }}
     >
       {/* Responsive AppBar at the top */}
-      <Box sx={{ flexShrink: 0 }}>
-        <ResponsiveAppBar/>
+      <Box>
+        <ResponsiveAppBar />
       </Box>
 
       {/* Main content area */}
@@ -80,6 +81,20 @@ export default function Dashboard() {
           overflow: 'hidden', // Prevents overflow
         }}
       >
+        {/* Instrument selector on the left */}
+        <Box
+          sx={{
+            position: 'absolute',
+            left: 0,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: 1,
+            height: '100%',
+          }}
+        >
+          <InstrumentSelector />
+        </Box>
+
         {/* Combined drawer container */}
         <Box
           sx={{
@@ -144,6 +159,7 @@ export default function Dashboard() {
       <Box sx={{ flexShrink: 0 }}>
         <Keyboard />
       </Box>
+
 
     </Box>
   );
