@@ -1,10 +1,10 @@
 'use client';
 import { useEffect, useState } from "react";
 import * as Tone from "tone";
-import { Grid, Box, Button, List, ListItem, ListItemText, Divider } from "@mui/material";
-import Keyboard from "@/components/Keyboard";
+import { Box, Button } from "@mui/material";
 import ResponsiveAppBar from "@/components/ResponsiveAppBar";
 import InstrumentSelector from "@/components/InstrumentSelector";
+import KeyboardContainer from "@/components/KeyboardContainer";
 
 export default function Dashboard() {
 
@@ -130,7 +130,7 @@ export default function Dashboard() {
               writingMode: 'vertical-rl',
               textOrientation: 'mixed',
               transform: 'rotate(180deg)',
-              color: '#A0A0A0',
+              color: '#C0C0C0',
               padding: '8px 0',
             }}>
               Instrument Settings
@@ -142,7 +142,7 @@ export default function Dashboard() {
             sx={{
               width: '500px',
               backgroundColor: '#505050',
-              borderLeft: '1px solid #ddd',
+              borderLeft: '1px solid #808080',
               padding: '16px',
               boxShadow: '-2px 0 8px rgba(0,0,0,0.1)', // TODO: this needs to be fixed
             }}
@@ -157,10 +157,9 @@ export default function Dashboard() {
       </Box>
 
       {/* Keyboard component at the bottom */}
-      <Box sx={{ flexShrink: 0 }}>
-        <Keyboard />
+      <Box>
+        <KeyboardContainer />
       </Box>
-
 
     </Box>
   );

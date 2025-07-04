@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from 'react';
 import "../styles/Keyboard.css";
 
 const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
