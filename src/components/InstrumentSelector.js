@@ -9,8 +9,6 @@ import Divider from '@mui/material/Divider';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import PianoIcon from '@mui/icons-material/Piano';
 import GuitarIcon from '@mui/icons-material/Audiotrack';
-import { INSTRUMENTS } from '../instruments';
-import { useAudioEngine } from '../contexts/AudioContextProvider';
 
 export default function InstrumentList() {
   const instruments = [
