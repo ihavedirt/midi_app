@@ -18,6 +18,17 @@ export default function KeyboardContainer({ activeNotes }) {
 
             </Box>
             <Keyboard />
+            <Box sx={{
+                width: '100%',
+                height: '10px',
+                backgroundColor: '#404040',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                position: 'relative',
+                overflow: 'hidden',
+            }}>
+            </Box>
         </Box>
     );
 }
