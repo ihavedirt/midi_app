@@ -19,9 +19,11 @@ export async function setupMIDI() {
         console.log(event.port.name, event.port.manufacturer, event.port.state);
     };
 
+    // Reads all MIDI inputs
+    // NOTE: this reads inputs for ALL connected MIDI devices
     for (let input of midiAccess.inputs.values()) {
         input.onmidimessage = (msg) => {
-            if (onMIDIMessageCallback) {
+            if (onMIDIMessageCallback) { // ensures that callback is set
                 onMIDIMessageCallback(msg);
             }
         }

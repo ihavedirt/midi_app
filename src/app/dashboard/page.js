@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import { setupMIDI, setMIDIMessageHandler } from "@/midi/midiHandler";
 import ResponsiveAppBar from "@/components/ResponsiveAppBar";
 import InstrumentSelector from "@/components/InstrumentSelector";
 import KeyboardContainer from "@/components/KeyboardContainer";
@@ -16,6 +15,7 @@ export default function Dashboard() {
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
+        backgroundColor: '#808080', // Dark gray background
       }}
     >
       {/* Responsive AppBar at the top */}

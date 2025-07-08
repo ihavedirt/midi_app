@@ -1,4 +1,4 @@
-import { AudioContextProvider } from '@/contexts/AudioContextProvider';
+import { AudioContextProvider } from '@/utils/AudioContextProvider';
 
 export const metadata = {
   title: "MIDI App",

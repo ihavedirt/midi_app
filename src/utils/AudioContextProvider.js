@@ -1,8 +1,8 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect } from 'react';
-import { AudioEngine, midiNoteToName } from '@/audio/audioEngine';
-import { setupMIDI, setMIDIMessageHandler } from '@/midi/midiHandler';
+import { AudioEngine, midiNoteToName } from '@/utils/audioEngine';
+import { setupMIDI, setMIDIMessageHandler } from '@/utils/midiHandler';
 
 const AudioContext = createContext();
 

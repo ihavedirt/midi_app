@@ -11,8 +11,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import PianoIcon from '@mui/icons-material/Piano';
-import { useAudioEngine } from '@/contexts/AudioContextProvider';
-import { AudioEngine } from '@/audio/audioEngine';
+import { useAudioEngine } from '@/utils/AudioContextProvider';
+import { AudioEngine } from '@/utils/audioEngine';
 
 export default function InstrumentList() {
   const { engine } = useAudioEngine();
