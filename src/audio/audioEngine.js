@@ -8,19 +8,53 @@ export function midiNoteToName(noteNumber) {
   return note + octave;
 }
 
-export function handleMIDIMessage(msg) {
-  const [status, noteNumber, velocity] = msg.data;
-  const note = midiNoteToName(noteNumber);
+export class AudioEngine {
+  constructor() {
+    this.synth = null;
+    this.initialized = false; // Flag to check if the engine is initialized with an instrument
+  }
 
-  if (status === 144 && velocity > 0) {
-    triggerNote(note, velocity);
-  } else if (status === 128 || (status === 144 && velocity === 0)) {
-    releaseNote(note);
+  async init() {
+    if (this.initialized) return;
+
+    await Tone.start(); // ensure user has interacted
+    this.synth = new Tone.PolySynth().toDestination();
+    this.synth.volume.value = -12;
+    this.initialized = true;
+    console.log("AudioEngine initialized");
+  }
+
+  static getInstruments() {
+    return [
+      { label: 'Piano', value: 'piano', initialize: () => new Tone.PolySynth() },
+      { label: 'Grand Piano', value: 'grand piano', initialize: () => new Tone.PolySynth() },
+      { label: 'Synth', value: 'synth', initialize: () => new Tone.PolySynth() },
+      { label: 'Electric Guitar', value: 'guitar', initialize: () => new Tone.PolySynth() },
+      { label: 'Bass', value: 'bass', initialize: () => new Tone.PolySynth() },
+      { label: 'Violin', value: 'violin', initialize: () => new Tone.PolySynth() },
+      { label: 'Trumpet', value: 'trumpet', initialize: () => new Tone.PolySynth() },
+    ];
+  }
+
+  playNote(note, velocity = 0.8) {
+    this.synth.triggerAttack(note, Tone.now(), velocity);
+  }
+
+  stopNote(note) {
+    this.synth.triggerRelease(note, Tone.now());
+  }
+
+  setVolume(value) {
+    this.synth.volume.value = value;
+  }
+
+  changeInstrument(newSynth) {
+    this.synth.disconnect();
+    this.synth = newSynth.toDestination();
   }
 }
 
 /*
-import * as Tone from 'tone';
 import { Soundfont } from 'soundfont-player';
 
 export class AudioEngine {

@@ -1,5 +1,3 @@
-import * as Tone from "tone";
-
 let onMIDIMessageCallback = null;
 
 export function setMIDIMessageHandler(callback) {
