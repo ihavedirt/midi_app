@@ -1,59 +1,111 @@
 import * as Tone from 'tone';
 
+// This function takes the midi note number and converts it to Tone.js readable notation
 export function midiNoteToName(noteNumber) {
-  // This function takes the midi note number and converts it to Tone.js readable notation
   const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
   const octave = Math.floor(noteNumber / 12) - 1;
   const note = notes[noteNumber % 12];
   return note + octave;
 }
 
+// The AudioEngine class holds all the actual instruments and functions, these should be called
+// via the audioContextProvider
 export class AudioEngine {
   constructor() {
-    this.synth = null;
+    this.instrument = null;
     this.initialized = false; // Flag to check if the engine is initialized with an instrument
   }
 
+  // This function returns a list of instruments that can be used in the app
+  // this might be better to move to separate file
+  static getInstruments() {
+    return [
+      { 
+        label: 'Piano', 
+        value: 'piano', 
+        initialize: () => new Tone.PolySynth() 
+      },
+      { 
+        label: 'Grand Piano', 
+        value: 'grand piano', 
+        initialize: () => new Tone.PolySynth()
+      },
+      { 
+        label: 'Synth', 
+        value: 'synth', 
+        initialize: () => new Tone.PolySynth() 
+      },
+      { 
+        label: 'Electric Guitar', 
+        value: 'guitar', 
+        initialize: () => new Tone.PolySynth() 
+      },
+      { 
+        label: 'Bass', 
+        value: 'bass', 
+        initialize: () => new Tone.PolySynth() 
+      },
+      { 
+        label: 'Violin', 
+        value: 'violin', 
+        initialize: () => new Tone.PolySynth() 
+      },
+      { 
+        label: 'Trumpet', 
+        value: 'trumpet', 
+        initialize: () => new Tone.PolySynth() 
+      },
+    ];
+  }
+
+  // This function initializes the audio engine, called in audioContextProvider
   async init() {
     if (this.initialized) return;
 
-    await Tone.start(); // ensure user has interacted
-    this.synth = new Tone.PolySynth().toDestination();
-    this.synth.volume.value = -12;
+    await Tone.start(); // ensure user has interacted, tone.js requires user interaction to start audio
+    this.instrument = AudioEngine.getInstruments()[0].initialize().toDestination(); // Initialize the first instrument
     this.initialized = true;
     console.log("AudioEngine initialized");
   }
 
-  static getInstruments() {
-    return [
-      { label: 'Piano', value: 'piano', initialize: () => new Tone.PolySynth() },
-      { label: 'Grand Piano', value: 'grand piano', initialize: () => new Tone.PolySynth() },
-      { label: 'Synth', value: 'synth', initialize: () => new Tone.PolySynth() },
-      { label: 'Electric Guitar', value: 'guitar', initialize: () => new Tone.PolySynth() },
-      { label: 'Bass', value: 'bass', initialize: () => new Tone.PolySynth() },
-      { label: 'Violin', value: 'violin', initialize: () => new Tone.PolySynth() },
-      { label: 'Trumpet', value: 'trumpet', initialize: () => new Tone.PolySynth() },
-    ];
+  // This function plays a note with the given velocity, called in the audioContextProvider
+  playNote(note, velocity) {
+    if (!this.initialized) {
+      console.warn("AudioEngine not initialized");
+      return;
+    }
+    this.instrument.triggerAttack(note, Tone.now(), velocity);
   }
 
-  playNote(note, velocity = 0.8) {
-    this.synth.triggerAttack(note, Tone.now(), velocity);
-  }
-
+  // This function stops a note, called in the audioContextProvider
   stopNote(note) {
-    this.synth.triggerRelease(note, Tone.now());
+    if (!this.initialized) {
+      console.warn("AudioEngine not initialized");
+      return;
+    }
+    this.instrument.triggerRelease(note, Tone.now());
   }
 
+  // This function sets the volume of the instrument
   setVolume(value) {
-    this.synth.volume.value = value;
+    if (!this.initialized) {
+      console.warn("AudioEngine not initialized");
+      return;
+    }
+    this.instrument.volume.value = value;
   }
 
-  changeInstrument(newSynth) {
-    this.synth.disconnect();
-    this.synth = newSynth.toDestination();
+  // This function changes the instrument to a new one, disconnects the old one
+  changeInstrument(newInstrument) {
+    if (this.instrument) {
+      this.instrument.disconnect();
+    }
+    this.instrument = newInstrument.toDestination();
   }
 }
 
+
+// this is an example of chaining effects and ADSR envelopes
 /*
 import { Soundfont } from 'soundfont-player';
 

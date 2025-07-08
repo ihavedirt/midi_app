@@ -29,8 +29,8 @@ export default function InstrumentList() {
     setSelected(instrument.value);
 
     // initialize the instrument and set it in the audio engine
-    const newSynth = instrument.initialize();
-    engine.changeInstrument(newSynth);
+    const newInstrument = instrument.initialize();
+    engine.changeInstrument(newInstrument);
   };
 
   // This returns an icon based on the instrument name
@@ -94,7 +94,7 @@ export default function InstrumentList() {
 
                   </ListItemButton>
                 </ListItem>
-                
+
                 {/* Divider between list items */}
                 <Divider sx={{ bgcolor: '#606060' }} />
               </React.Fragment>

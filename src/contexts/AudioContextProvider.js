@@ -10,6 +10,14 @@ export function AudioContextProvider({ children }) {
   const [engine] = useState(() => new AudioEngine());
 
   useEffect(() => {
+
+    // Initializes the audio engine
+    const initAudioEngine = async () => {
+      await engine.init();
+    };
+    initAudioEngine();
+
+
     setMIDIMessageHandler((msg) => {
       const [status, noteNumber, velocity] = msg.data;
       const note = midiNoteToName(noteNumber);
