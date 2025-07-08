@@ -9,14 +9,6 @@ import InstrumentSettingsSlideDrawer from "@/components/InstrumentSettingsSlideD
 
 export default function Dashboard() {
 
-  useEffect(() => {
-    setMIDIMessageHandler((msg) => {
-      console.log("MIDI message received:", msg);
-    });
-
-    setupMIDI();
-  }, []);
-
   return (
     <Box
       sx={{

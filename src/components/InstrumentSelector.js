@@ -11,11 +11,11 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import PianoIcon from '@mui/icons-material/Piano';
-import { useAudio } from '@/contexts/AudioContextProvider';
+import { useAudioEngine } from '@/contexts/AudioContextProvider';
 import { AudioEngine } from '@/audio/audioEngine';
 
 export default function InstrumentList() {
-  const { engine } = useAudio();
+  const { engine } = useAudioEngine();
   const instrumentList = AudioEngine.getInstruments();
 
   // Initialize the first instrument in the list as selected
