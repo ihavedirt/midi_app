@@ -56,7 +56,12 @@ export default function GamesDashboard() {
                         justifyContent: 'center', 
                         alignItems: 'center' }}
                     >
-                        <img src="images/hero_mode.jpg" alt="Image 1" />
+                        <img 
+                          src="images/hero_mode.jpg" 
+                          alt="Image 1" 
+                          style={{
+                            width: '100%',
+                        }}/>
 
                     </Box>
                 </SwiperSlide>
@@ -67,7 +72,12 @@ export default function GamesDashboard() {
                         justifyContent: 'center', 
                         alignItems: 'center' }}
                     >
-                        <img src="images/sight_read.png" alt="Image 2" />
+                        <img 
+                          src="images/sight_read.png" 
+                          alt="Image 2" 
+                          style={{
+                            width: '100%',
+                        }}/>
 
                     </Box>
                 </SwiperSlide>
