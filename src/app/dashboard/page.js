@@ -40,8 +40,8 @@ export default function Dashboard() {
         <Box
           sx={{
             position: 'absolute',
-            left: 0,
-            top: '50%',
+            left: 20,
+            top: '55%',
             transform: 'translateY(-50%)',
             zIndex: 1,
             height: '100%',

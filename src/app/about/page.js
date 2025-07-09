@@ -9,15 +9,18 @@ import {
 
 export default function AboutPage() {
     return (
-        <Box>
+            <Box sx={{
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: '#aaa', // Dark gray background
+            }}>
             <ResponsiveAppBar />
             <Box
                 sx={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
-                minHeight: 'calc(100vh - 64px)', // account for AppBar height
-                backgroundColor: '#f3f3f3',
                 p: 5,
                 }}
             >

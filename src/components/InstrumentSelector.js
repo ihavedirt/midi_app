@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import {Card} from '@mui/material';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -48,28 +49,28 @@ export default function InstrumentList() {
   };
 
   return (
-    <Box // I think this shit needs to be in dashboard/page.js
-      sx={{
-        width: '250px',
-        height: '100%',
-        bgcolor: '#505050',
-        color: 'white',
-        display: 'flex',
-        flexDirection: 'column', 
-      }}
-    >
-      <Box
+    <Card>
+      <Box // I think this shit needs to be in dashboard/page.js
         sx={{
-          flex: 1,
-          overflowY: 'auto',
-          '&::-webkit-scrollbar': { width: '6px' },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#909090',
-            borderRadius: '3px',
-          },
+          width: '250px',
+          height: '700px',
+          bgcolor: '#505050',
+          color: 'white',
+          display: 'flex',
+          flexDirection: 'column', 
         }}
       >
-        <nav aria-label="instrument selection">
+        <Box
+          sx={{
+            flex: 1,
+            overflowY: 'auto',
+            '&::-webkit-scrollbar': { width: '6px' },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#909090',
+              borderRadius: '3px',
+            },
+          }}
+        >
           <List>
             {instrumentList.map((instrument, index) => (
               // Apparently its a good idea to wrap this shit in React.Fragment for rendering?
@@ -100,8 +101,8 @@ export default function InstrumentList() {
               </React.Fragment>
             ))}
           </List>
-        </nav>
+        </Box>
       </Box>
-    </Box>
+    </Card>
   );
 }
