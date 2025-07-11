@@ -4,13 +4,12 @@ import {
   Box, 
   Typography, 
   Card, 
-  CardContent,
   CardMedia,
   Grid,
   CardActionArea
 } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation, Autoplay } from 'swiper/modules';
+import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -35,12 +34,7 @@ export default function GamesDashboard() {
       <Box sx={{ p: 3 }}>
         <Card sx={{ mb: 3 }}>
             <Swiper 
-              pagination={true}
-              autoplay={{
-                delay: 30000,
-                disableOnInteraction: false
-              }} 
-              Pagination={{ 
+              pagination={{ 
                 clickable: true,
               }}
               navigation={true}
@@ -49,7 +43,7 @@ export default function GamesDashboard() {
                 "--swiper-navigation-color": "#000",
                 backgroundColor: "#666"
               }}
-              modules={[Navigation, Pagination, Autoplay]} 
+              modules={[Navigation, Pagination]} 
               className="mySwiper"
             >
                 <SwiperSlide>
@@ -119,8 +113,6 @@ export default function GamesDashboard() {
           alt="Hero Mode"
           sx={{ width: '100%', flexGrow: 1, objectFit: 'cover' }}
         />
-
-        {/* Bottom overlay */}
         <Box
           sx={{
             width: '100%',

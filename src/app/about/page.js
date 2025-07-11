@@ -25,23 +25,23 @@ export default function AboutPage() {
                 }}
             >
                 <Card
-                sx={{
-                    width: '100%',
-                    maxWidth: 600,
-                    p: 4,
-                }}
+                    sx={{
+                        width: '100%',
+                        maxWidth: 600,
+                        p: 4,
+                    }}
                 >
                     <Typography variant="h4" gutterBottom>
                         About This App
                     </Typography>
                     <Typography variant="body1">
-                        This app is designed to let you play the keyboard in a contained and easy to use environment. 
+                        This app is an interactive music keyboard software for MIDI keyboards available for all platforms. 
                     </Typography>
                     <Typography variant="body1">
-                        It features various games and exercises to make learning fun and engaging.
+                        It features various games and exercises to make learning and playing more fun.
                     </Typography>
                     <Typography variant="body1">
-                        I would love to hear your feedback and suggestions. Send me an email at: davidbaik1001@gmail.com
+                        I'm accessible at: davidbaik1001@gmail.com
                     </Typography>
                     <Typography variant="subtitle1">
                         David B
