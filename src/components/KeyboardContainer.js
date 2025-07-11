@@ -1,8 +1,10 @@
 import * as React from 'react';
 import Keyboard from "@/components/Keyboard";
 import { Box, Button, TextField } from "@mui/material";
+import { useState } from 'react';
 
-export default function KeyboardContainer({ activeNotes }) {
+export default function KeyboardContainer() {
+    const [octaves, setOctaves] = useState(5);
     return (
         <Box>
             <Box sx={{
@@ -32,10 +34,19 @@ export default function KeyboardContainer({ activeNotes }) {
                         width: '100px',
                         marginLeft: '10px',
                         marginRight: '10px',
+                        input: { color: 'white' },
+                        label: { color: 'white' }
+                    }}
+                    type="number"
+                    onChange={(e) => {
+                        const val = parseInt(e.target.value);
+                        if (!isNaN(val)) {
+                            setOctaves(val);
+                        }
                     }}
                 />
             </Box>
-            <Keyboard />
+            <Keyboard octaves={octaves}/>
 
             <Box sx={{
                 width: '100%',

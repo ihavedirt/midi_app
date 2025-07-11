@@ -9,6 +9,7 @@ const AudioContext = createContext();
 export function AudioContextProvider({ children }) {
   const [engine] = useState(() => new AudioEngine());
   const [initialized, setInitialized] = useState(false);
+  const [activeNotes, setActiveNotes] = useState([]);
 
   // Tone.js requires user interaction to start audio context
   // This function waits for a user gesture to initialize the audio engine
@@ -50,9 +51,11 @@ export function AudioContextProvider({ children }) {
       const note = midiNoteToName(noteNumber);
 
       if (status === 144 && velocity > 0) {
-        engine.playNote(note, velocity / 127);
+        engine.playNote(note, velocity / 127); // this gets the audio engine to play a note
+        setActiveNotes((prev) => [...prev, note]); // this sets the list of active notes
       } else if (status === 128 || (status === 144 && velocity === 0)) {
-        engine.stopNote(note);
+        engine.stopNote(note); // this makes the audio engine to stop a note
+        setActiveNotes((prev) => prev.filter(n => n !== note)); // this removes notes from active notes list
       }
     });
 
@@ -66,7 +69,7 @@ export function AudioContextProvider({ children }) {
   }, [initialized, engine]);
 
   return (
-    <AudioContext.Provider value={{ engine, initialized }}>
+    <AudioContext.Provider value={{ engine, initialized, activeNotes }}>
       {children}
     </AudioContext.Provider>
   );

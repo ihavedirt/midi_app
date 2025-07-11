@@ -7,7 +7,7 @@ import {
   CardContent,
   CardMedia,
   Grid,
-  Button
+  CardActionArea
 } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
@@ -15,21 +15,24 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
+import { useRouter} from 'next/navigation';
 
 export default function GamesDashboard() {
+  // This cuz theres routing on this page, remove if cards become components
+  const router = useRouter();
+
   return (
     <Box sx={{
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: '#aaa', // Dark gray background
+        backgroundColor: '#aaa',
       }}
     >
       <ResponsiveAppBar />
       
+      {/* Featured game mode Swiper */}
       <Box sx={{ p: 3 }}>
-        {/* Featured Game Mode */}
-        
         <Card sx={{ mb: 3 }}>
             <Swiper 
               pagination={true}
@@ -98,47 +101,70 @@ export default function GamesDashboard() {
             </Swiper>
         </Card>
         
-        {/* Games section */}
+        {/* Games section header*/}
         <Typography variant="h5" gutterBottom>
           Games
         </Typography>
-        
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Card>
-              <CardMedia 
-                component="img"
-                height="140"
-                image="/images/hero_mode.jpg"
-                alt="Hero Mode"
-              />
-              <CardContent>
+  {/* Hero Mode Card */}
+  <Grid item xs={12} sm={6}>
+    <Card sx={{ width: 300, height: 400, display: 'flex', flexDirection: 'column' }}>
+      <CardActionArea
+        onClick={() => router.push('/games/hero-mode')}
+        sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+      >
+        <CardMedia
+          component="img"
+          image="/images/hero_mode.jpg"
+          alt="Hero Mode"
+          sx={{ width: '100%', flexGrow: 1, objectFit: 'cover' }}
+        />
 
-                <Typography variant="h6">
-                  Hero Mode
-                </Typography>
+        {/* Bottom overlay */}
+        <Box
+          sx={{
+            width: '100%',
+            textAlign: 'center',
+            background: 'rgba(0, 0, 0, 0.4)',
+            color: 'black',
+            py: 1,
+          }}
+        >
+          <Typography variant="h6">Hero Mode</Typography>
+        </Box>
+      </CardActionArea>
+    </Card>
+  </Grid>
 
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item>
-            <Card>
-              <CardMedia 
-                component="img"
-                height="140"
-                image="/images/sight_read.png"
-                alt="Sight Read"
-              />
-              <CardContent>
+  {/* Sight Read Card */}
+  <Grid item xs={12} sm={6}>
+    <Card sx={{ width: 300, height: 400, display: 'flex', flexDirection: 'column' }}>
+      <CardActionArea
+        onClick={() => router.push('/games/sight-read')}
+        sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+      >
+        <CardMedia
+          component="img"
+          image="/images/sight_read.png"
+          alt="Sight Read"
+          sx={{ width: '100%', flexGrow: 1, objectFit: 'cover' }}
+        />
+        <Box
+          sx={{
+            width: '100%',
+            textAlign: 'center',
+            background: 'rgba(0, 0, 0, 0.4)',
+            color: 'black',
+            py: 1,
+          }}
+        >
+          <Typography variant="h6">Sight Read</Typography>
+        </Box>
+      </CardActionArea>
+    </Card>
+  </Grid>
+</Grid>
 
-                <Typography variant="h6">
-                  Sight Read
-                </Typography>
-
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
       </Box>
     </Box>
   );
