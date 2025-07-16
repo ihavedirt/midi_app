@@ -14,6 +14,7 @@
     "@fontsource/roboto": "^5.2.6",
     "@mui/icons-material": "^7.1.2",
     "@mui/material": "^7.1.2",
+    "@tonejs/midi": "^2.0.28",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

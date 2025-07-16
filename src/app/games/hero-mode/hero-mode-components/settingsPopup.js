@@ -1,9 +1,11 @@
 'use client';
 
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import { Box, Card, Slider, Typography } from '@mui/material';
 import { useState } from 'react';
 
-export default function SettingsMenu() {
+export default function SettingsMenu({ onClose }) {
   const [volume, setVolume] = useState(50);
 
   const handleVolumeChange = (_, newValue) => {
@@ -13,7 +15,7 @@ export default function SettingsMenu() {
   return (
     <Box
       sx={{
-        position: 'fixed',
+        position: 'relative',
         top: 0,
         left: 0,
         width: '100vw',
@@ -31,11 +33,25 @@ export default function SettingsMenu() {
           maxWidth: 400,
           p: 4,
           boxShadow: 3,
+          position: 'relative'
         }}
       >
         <Typography variant="h6" gutterBottom>
           Settings
         </Typography>
+
+        {/* Close button */}
+        <IconButton
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            top: 8,
+            right: 8,
+          }}
+          size="small"
+        >
+          <CloseIcon />
+        </IconButton>
 
         <Typography gutterBottom>Volume</Typography>
         <Slider

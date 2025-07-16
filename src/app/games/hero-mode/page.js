@@ -9,6 +9,7 @@ import EndScreen from "@/app/games/hero-mode/hero-mode-components/endScreen"
 import SettingsPopup from "@/app/games/hero-mode/hero-mode-components/settingsPopup"
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { HeroGameEngine } from '@/utils/HeroGameEngine';
 
 
 export default function HeroModeContainer() {
@@ -25,6 +26,10 @@ export default function HeroModeContainer() {
       gameEngineRef.current?.pause();
     }
   };
+
+  const gameEngine = new HeroGameEngine();
+
+  gameEngine.loadSong();
 
   return (
     <Box
@@ -45,10 +50,10 @@ export default function HeroModeContainer() {
           flexGrow: 1,
           backgroundColor: '#e0e0e0',
           display: 'flex',
-          justifyContent: 'flex-end', // Aligns children to the right
-          alignItems: 'center',      // Centers vertically
-          position: 'relative',      // For percentage-based height
-          overflow: 'hidden', // Prevents overflow
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden',
           bgcolor: '#808080',
         }}
       >
