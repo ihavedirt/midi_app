@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef } from "react";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import ResponsiveAppBar from "@/components/ResponsiveAppBar";
 import KeyboardContainer from "@/components/KeyboardContainer";
 import MenuScreen from "@/app/games/hero-mode/hero-mode-components/menuScreen"
@@ -30,6 +30,8 @@ export default function HeroModeContainer() {
   const gameEngine = new HeroGameEngine();
 
   gameEngine.loadSong();
+
+  console.log(gameEngine.playerNotes);
 
   return (
     <Box
@@ -80,29 +82,19 @@ export default function HeroModeContainer() {
           <SettingsPopup onClose={toggleSettings} />
         )}
 
+
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Button variant="contained" onClick={gameEngine.startGame()}>Start Game</Button>
+        </Box>
+
         {/* Menu screen */}
-        {screen === 'menu' && (
-          <MenuScreen
-            onSelectSong={(song) => {
-              setSelectedSong(song);
-              setScreen('playing');
-            }}
-          />
-        )}
 
-        {/* Game play screen */}
-        {screen === 'playing' && (
-          <GameScreen
-            song={selectedSong}
-            gameEngineRef={gameEngineRef}
-            onGameEnd={() => setScreen('end')}
-          />
-        )}
-
-        {/* post game screen */}
-        {screen === 'end' && (
-          <EndScreen onRestart={() => setScreen('start')} />
-        )}
       </Box>
 
       {/* Keyboard component at the bottom */}
@@ -113,3 +105,28 @@ export default function HeroModeContainer() {
     </Box>
   );
 }
+
+
+        // {/* Menu screen */}
+        // {screen === 'menu' && (
+        //   <MenuScreen
+        //     onSelectSong={(song) => {
+        //       setSelectedSong(song);
+        //       setScreen('playing');
+        //     }}
+        //   />
+        // )}
+
+        // {/* Game play screen */}
+        // {screen === 'playing' && (
+        //   <GameScreen
+        //     song={selectedSong}
+        //     gameEngineRef={gameEngineRef}
+        //     onGameEnd={() => setScreen('end')}
+        //   />
+        // )}
+
+        // {/* post game screen */}
+        // {screen === 'end' && (
+        //   <EndScreen onRestart={() => setScreen('start')} />
+        // )}

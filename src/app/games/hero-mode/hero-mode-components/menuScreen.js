@@ -1,2 +1,5 @@
 
-export default function MenuScreen({ onSelectSong }) {}
+export default function MenuScreen({ onSelectSong }) {
+
+    
+}

@@ -4,28 +4,31 @@ export class HeroGameEngine {
 
     constructor() {
         this.playerNotes = [];
+        this.spawnedNotes = [];
         this.currentSongName = "";
         this.isPlaying = false;
-        this.startTime = 0;
-        this.lastTime = 0;
-        this.deltaTime = 0;
+        this.startTime = 0; // time the song started
+        this.lastTime = 0; // temp time holder
+        this.deltaTime = 0; // time elapsed since last tick
+        this.elapsedTime = 0; // total time elapsed
+        this.songTotalTime = 0;
     }
 
     async loadSong(midiFileUrl) {
         const midiFile = await Midi.fromUrl("/songs/Coldplay - Viva La Vida.mid")
-        console.log(midiFile.header.tempos);
-        midiFile.tracks.forEach((track, trackIndex) => {
-            console.log(`Track ${trackIndex}: ${track.name}`);
+        console.log(`Song bpm: ${midiFile.header.tempos[0].bpm}`);
+        console.log(midiFile.tracks);
 
-            track.notes.forEach(note => {
-                console.log({
+        midiFile.tracks[0].notes.forEach(note => { // the zero'th idx is specific to this midi file
+            this.playerNotes.push({                 //TO DO: need to figure out how to get the correct track when multiple tracks are present in the file
                 midi: note.midi,
                 name: note.name,
-                time: note.time,
-                duration: note.duration
-                });
+                time: note.time, // In seconds
+                duration: note.duration // Also in seconds
             });
         });
+
+        this.songTotalTime = Math.max(...this.playerNotes.map(note => note.time + note.duration)); // this computes the end of the song
     }
 
     startGame() {
@@ -42,16 +45,18 @@ export class HeroGameEngine {
         const currentTime = performance.now();
         this.deltaTime = (currentTime - this.lastTime) / 1000;
         this.lastTime = currentTime;
+        this.elapsedTime = currentTime - this.startTime;
 
-        updateAndRenderGame();
+        this.updateAndRenderGame();
 
         requestAnimationFrame(() => this.gameLoop());
     }
 
     updateAndRenderGame() {
         // find which note to create
+        return;
 
-        // create the note
+        // spawn the note
 
         // modify positions of existing notes
     }
