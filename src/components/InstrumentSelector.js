@@ -12,26 +12,26 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import PianoIcon from '@mui/icons-material/Piano';
-import { useAudioEngine } from '@/utils/AudioContextProvider';
-import { AudioEngine } from '@/utils/audioEngine';
 
-export default function InstrumentList() {
-  const { engine } = useAudioEngine();
-  const instrumentList = AudioEngine.getInstruments();
+export default function InstrumentList({ onChange}) {
+  const instrumentList = [
+    {label: 'Piano', value: 'piano'},
+    {label: 'Synth', value: 'synth'},
+    {label: 'Electric Guitar', value: 'electric_guitar'},
+    {label: 'Bass', value: 'bass'},
+    {label: 'Violin', value: 'violin'},
+    {label: 'Trumpet', value: 'trumpet'},
+    {label: 'Drums', value: 'drums'}
+  ];
 
   // Initialize the first instrument in the list as selected
   const [selected, setSelected] = useState(instrumentList[0].value);
 
   // sets the instrument in the audio engine
-  const handleSelect = (instrument) => {
-    console.log(`Selected instrument: ${instrument.value}`);
-
-    // sets the state for the UI
-    setSelected(instrument.value);
-
-    // initialize the instrument and set it in the audio engine
-    const newInstrument = instrument.initialize();
-    engine.changeInstrument(newInstrument);
+  const handleSelect = (instrumentName) => {
+    console.log(`Selected instrument: ${instrumentName}`);
+    setSelected(instrumentName);
+    onChange(instrumentName);
   };
 
   // This returns an icon based on the instrument name
@@ -39,18 +39,18 @@ export default function InstrumentList() {
     switch (name) {
       case 'Piano': return <PianoIcon />;
       case 'Synth': return <PianoIcon />;
-      case 'AM Synth': return <PianoIcon />;
       case 'Electric Guitar': return <MusicNoteIcon />;
       case 'Bass': return <MusicNoteIcon />;
       case 'Violin': return <MusicNoteIcon />;
       case 'Trumpet': return <MusicNoteIcon />;
+      case 'Drums': return <PianoIcon />;
       default: return <PianoIcon />;
     }
   };
 
   return (
     <Card>
-      <Box // I think this shit needs to be in dashboard/page.js
+      <Box // I think this stuff needs to be in dashboard/page.js
         sx={{
           width: '250px',
           height: '700px',
@@ -72,13 +72,13 @@ export default function InstrumentList() {
           }}
         >
           <List>
-            {instrumentList.map((instrument, index) => (
-              // Apparently its a good idea to wrap this shit in React.Fragment for rendering?
+            {instrumentList.map((instrument) => (
+              // Apparently its a good idea to wrap this stuff in React.Fragment for rendering?
               <React.Fragment key={instrument.value}> 
                 <ListItem disablePadding>
                   {/* Button stuff starts here. Button has Icon and Text */}
                   <ListItemButton
-                    onClick={() => handleSelect(instrument)}
+                    onClick={() => handleSelect(instrument.value)}
                     sx={{
                       '&:hover': { backgroundColor: '#606060' },
                       px: 3,

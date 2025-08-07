@@ -9,7 +9,6 @@ import EndScreen from "@/app/games/hero-mode/hero-mode-components/endScreen"
 import SettingsPopup from "@/app/games/hero-mode/hero-mode-components/settingsPopup"
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { HeroGameEngine } from '@/utils/HeroGameEngine';
 
 
 export default function HeroModeContainer() {
@@ -26,12 +25,6 @@ export default function HeroModeContainer() {
       gameEngineRef.current?.pause();
     }
   };
-
-  const gameEngine = new HeroGameEngine();
-
-  gameEngine.loadSong();
-
-  console.log(gameEngine.playerNotes);
 
   return (
     <Box
@@ -77,21 +70,12 @@ export default function HeroModeContainer() {
           <SettingsIcon />
         </IconButton>
 
+        <GameScreen/>
+
         {/* Settings popup */}
         {showSettings && (
           <SettingsPopup onClose={toggleSettings} />
         )}
-
-
-        <Box
-          sx={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <Button variant="contained" onClick={gameEngine.startGame()}>Start Game</Button>
-        </Box>
 
         {/* Menu screen */}
 
@@ -106,8 +90,6 @@ export default function HeroModeContainer() {
   );
 }
 
-
-        // {/* Menu screen */}
         // {screen === 'menu' && (
         //   <MenuScreen
         //     onSelectSong={(song) => {

@@ -3,7 +3,7 @@ import Keyboard from "@/components/Keyboard";
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from 'react';
 
-export default function KeyboardContainer() {
+export default function KeyboardContainer({ activeNotes = [] }) {
     const [octaves, setOctaves] = useState(5);
     return (
         <Box>
@@ -46,7 +46,7 @@ export default function KeyboardContainer() {
                     }}
                 />
             </Box>
-            <Keyboard octaves={octaves}/>
+            <Keyboard octaves={octaves} activeNotes={activeNotes}/>
 
             <Box sx={{
                 width: '100%',

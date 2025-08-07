@@ -1,6 +1,5 @@
 import * as React from 'react';
 import "../styles/Keyboard.css";
-import { useAudioEngine } from '@/utils/AudioContextProvider';
 
 const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
@@ -22,8 +21,7 @@ function generateKeys(octaves) {
   return keys;
 }
 
-export default function Keyboard({ octaves }) {
-  const { activeNotes } = useAudioEngine();
+export default function Keyboard({ octaves, activeNotes = [] }) {
   const keys = generateKeys(octaves);
 
   return (

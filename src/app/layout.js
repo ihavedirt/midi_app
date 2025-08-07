@@ -1,4 +1,3 @@
-import { AudioContextProvider } from '@/utils/AudioContextProvider';
 
 export const metadata = {
   title: "MIDI App",
@@ -9,9 +8,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-black text-white">
-        <AudioContextProvider>
-          {children}
-        </AudioContextProvider>
+        {children}
       </body>
     </html>
   );

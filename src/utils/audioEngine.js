@@ -1,6 +1,6 @@
-import * as Tone from 'tone';
 
-// This function takes the midi note number and converts it to Tone.js readable notation
+import { SplendidGrandPiano, DrumMachine, Soundfont } from "smplr";
+
 export function midiNoteToName(noteNumber) {
   const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
   const octave = Math.floor(noteNumber / 12) - 1;
@@ -8,98 +8,98 @@ export function midiNoteToName(noteNumber) {
   return note + octave;
 }
 
-// The AudioEngine class holds all the actual instruments and functions, these should be called
-// via the audioContextProvider
 export class AudioEngine {
   constructor() {
+    this.audioContext = null;
     this.instrument = null;
-    this.initialized = false; // Flag to check if the engine is initialized with an instrument
+    this.instrumentType = null;
+    this.initialized = false;
   }
 
-  // This function returns a list of instruments that can be used in the app
-  // this might be better to move to separate file
-  static getInstruments() {
-    return [
-      { 
-        label: 'Piano', 
-        value: 'piano', 
-        initialize: () => new Tone.PolySynth() 
-      },
-      { 
-        label: 'Grand Piano', 
-        value: 'grand piano', 
-        initialize: () => new Tone.PolySynth()
-      },
-      { 
-        label: 'Synth', 
-        value: 'synth', 
-        initialize: () => new Tone.PolySynth() 
-      },
-      { 
-        label: 'Electric Guitar', 
-        value: 'guitar', 
-        initialize: () => new Tone.PolySynth() 
-      },
-      { 
-        label: 'Bass', 
-        value: 'bass', 
-        initialize: () => new Tone.PolySynth() 
-      },
-      { 
-        label: 'Violin', 
-        value: 'violin', 
-        initialize: () => new Tone.PolySynth() 
-      },
-      { 
-        label: 'Trumpet', 
-        value: 'trumpet', 
-        initialize: () => new Tone.PolySynth() 
-      },
-    ];
-  }
-
-  // This function initializes the audio engine, called in audioContextProvider
+  // this is kinda useless as is, had it cuz I was using Tone.js before, I want to keep it for now
   async init() {
     if (this.initialized) return;
 
-    await Tone.start(); // ensure user has interacted, tone.js requires user interaction to start audio
-    this.instrument = AudioEngine.getInstruments()[0].initialize().toDestination(); // Initialize the first instrument
+    this.audioContext = new AudioContext();
+
+    // Some browsers require context to be resumed on gesture?
+    if (this.audioContext.state === "suspended") {
+      await this.audioContext.resume();
+    }
+
     this.initialized = true;
+    
     console.log("AudioEngine initialized");
   }
 
-  // This function plays a note with the given velocity, called in the audioContextProvider
+  async setInstrument(type) {
+    if (!this.initialized) {
+      throw new Error("AudioEngine not initialized");
+    }
+
+    // Dispose previous instrument if applicable
+    if (this.instrument?.dispose) {
+      this.instrument.dispose();
+    }
+
+    switch (type) {
+      case "piano":
+        this.instrument = await new Soundfont( this.audioContext, { instrument: "acoustic_grand_piano"} ).load;
+        this.instrumentType = "smplr";
+        break;
+
+      case "synth":
+        this.instrument = await new Soundfont( this.audioContext, { instrument: "synth_choir"} ).load;
+        this.instrumentType = "smplr";
+        break;
+
+      case "electric_guitar":
+        this.instrument = await new Soundfont( this.audioContext, { instrument: "electric_guitar_clean"} ).load;
+        this.instrumentType = "smplr";
+        break;
+
+      case "bass":
+        this.instrument = await new Soundfont( this.audioContext, { instrument: "electric_bass_finger"} ).load;
+        this.instrumentType = "smplr";
+        break;
+
+      case "violin":
+        this.instrument = await new Soundfont( this.audioContext, { instrument: "violin"} ).load;
+        this.instrumentType = "smplr";
+        break;
+
+      case "trumpet":
+        this.instrument = await new Soundfont( this.audioContext, { instrument: "trumpet"} ).load;
+        this.instrumentType = "smplr";
+        break;
+
+      case "drums":
+        this.instrument = new DrumMachine( this.audioContext );
+        this.instrumentType = "smplr";
+        break;
+
+      default:
+        console.warn(`Unknown instrument type: ${type}`);
+        break;
+    }
+
+    console.log(`Instrument set to: ${type}`);
+  }
+
   playNote(note, velocity) {
-    if (!this.initialized) {
-      console.warn("AudioEngine not initialized");
+    if (!this.instrument) {
       return;
     }
-    this.instrument.triggerAttack(note, Tone.now(), velocity);
+    console.log(`Playing note: ${note} with velocity: ${velocity}`);
+    this.instrument.start({ note, velocity });
   }
 
-  // This function stops a note, called in the audioContextProvider
   stopNote(note) {
-    if (!this.initialized) {
-      console.warn("AudioEngine not initialized");
+    if (!this.instrument) {
       return;
     }
-    this.instrument.triggerRelease(note, Tone.now());
-  }
+    console.log(`Instrument: ${this.instrument.config.instrument}, Stopping note: ${note}`);
 
-  // This function sets the volume of the instrument
-  setVolume(value) {
-    if (!this.initialized) {
-      console.warn("AudioEngine not initialized");
-      return;
-    }
-    this.instrument.volume.value = value;
-  }
-
-  // This function changes the instrument to a new one, disconnects the old one
-  changeInstrument(newInstrument) {
-    if (this.instrument) {
-      this.instrument.disconnect();
-    }
-    this.instrument = newInstrument.toDestination();
+    this.instrument.stop(note);
   }
 }
