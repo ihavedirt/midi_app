@@ -1,10 +1,18 @@
 import * as React from 'react';
-import { Box } from "@mui/material";
-import Button from '@mui/material/Button';
+import { Box, Typography, Button, Slider } from "@mui/material";
 import { useState } from 'react';
+import Stack from '@mui/material/Stack';
+import VolumeUp from '@mui/icons-material/VolumeUp';
+import VolumeDown from '@mui/icons-material/VolumeDown';
 
-export default function InstrumentSettingsSlideDrawer() {
+export default function InstrumentSettingsSlideDrawer({ onVolumeChange, defaultVolume=80 }) {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [volume, setVolume] = useState(defaultVolume);
+
+  const handleVolumeChange = (_, volume) => {
+    setVolume(volume);
+    onVolumeChange(volume);
+  }
 
   return (
     <Box
@@ -43,7 +51,7 @@ export default function InstrumentSettingsSlideDrawer() {
           color: '#C0C0C0',
           padding: '8px 0',
         }}>
-          Instrument Settings
+          <Typography>Instrument Settings</Typography>
         </span>
       </Button>
 
@@ -58,9 +66,19 @@ export default function InstrumentSettingsSlideDrawer() {
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Button variant="outlined">VOLUME</Button>
-          <Button variant="outlined">EFFECTS</Button>
-          <Button variant="outlined">PRESETS</Button>
+          <Typography variant="h6" sx={{ color: '#d4d4d4ff' }}>
+            Instrument Settings
+          </Typography>
+
+          <Typography sx={{ color: '#d4d4d4ff' }}>VOLUME</Typography>
+          <Stack spacing={2} direction="row" sx={{ alignItems: 'center', mr: 20, color: '#a0a0a0' }}>
+            <VolumeDown />
+            <Slider value={volume} min={0} max={127} step={1} color='#a0a0a0' onChange={handleVolumeChange}></Slider>
+            <VolumeUp />
+          </Stack>
+
+          <Typography sx={{ color: '#d4d4d4ff' }}>REVERB</Typography>
+          <Typography sx={{ color: '#d4d4d4ff'}}>More functions coming soon</Typography>
         </Box>
       </Box>
     </Box>

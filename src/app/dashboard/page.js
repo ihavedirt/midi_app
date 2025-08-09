@@ -11,6 +11,7 @@ import { AudioEngine, midiNoteToName } from "@/utils/audioEngine";
 export default function Dashboard() {
   const [activeNotes, setActiveNotes] = useState([]);
   const [initialized, setInitialized] = useState(false);
+  const [volume, setVolume] = useState(80); // default volume level, ranges 0-127
   const engineRef = useRef(null);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function Dashboard() {
       try {
         await engineRef.current.init();
         await engineRef.current.setInstrument("piano");
+        engineRef.current.setVolume(volume);
         setInitialized(true);
       } catch (err) {
         console.error("Failed to initialize audio engine:", err);
@@ -50,16 +52,15 @@ export default function Dashboard() {
 
     const handleMIDI = (msg) => {
       const [status, noteNumber, velocity] = msg.data;
-      //const note = midiNoteToName(noteNumber); // some instruments use note numbers, others use note names
-      const note = noteNumber; 
+      const note = midiNoteToName(noteNumber);
 
       if (status === 144 && velocity > 0) {
-        engineRef.current.playNote(note, velocity);
+        engineRef.current.playNote(noteNumber, velocity);
         setActiveNotes((prev) => [...prev, note]);
       }
 
       else if (status === 128 || (status === 144 && velocity === 0)) {
-        engineRef.current.stopNote(note);
+        engineRef.current.stopNote(noteNumber);
         setActiveNotes((prev) => prev.filter(n => n !== note));
       }
     };
@@ -74,6 +75,12 @@ export default function Dashboard() {
 
   const handleInstrumentChange = (InstrumentName) => {
     engineRef.current.setInstrument(InstrumentName);
+  }
+
+  const handleVolumeChange = (volume) => {
+    if (!initialized) return;
+    setVolume(volume);
+    engineRef.current.setVolume(volume);
   }
 
   return (
@@ -128,7 +135,7 @@ export default function Dashboard() {
             height: '100%',
           }}
         >
-          <InstrumentSettingsSlideDrawer />
+          <InstrumentSettingsSlideDrawer onVolumeChange={handleVolumeChange}/>
         </Box>
       </Box>
 

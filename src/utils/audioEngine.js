@@ -90,7 +90,6 @@ export class AudioEngine {
     if (!this.instrument) {
       return;
     }
-    console.log(`Playing note: ${note} with velocity: ${velocity}`);
     this.instrument.start({ note, velocity });
   }
 
@@ -98,8 +97,16 @@ export class AudioEngine {
     if (!this.instrument) {
       return;
     }
-    console.log(`Instrument: ${this.instrument.config.instrument}, Stopping note: ${note}`);
+    this.instrument.stop(note); // NEEDS NOTE NAME OR NUMBER DEPENDING ON THE INSTRUMENT
+                                // smplr uses note names
+                                // tone uses note numbers
+                                // smplr drum machine uses instrument name
+  }
 
-    this.instrument.stop(note);
+  setVolume(volume) {
+    if (!this.instrument) {
+      return;
+    }
+    this.instrument.output.setVolume(volume);
   }
 }

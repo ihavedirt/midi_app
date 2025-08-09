@@ -13,7 +13,7 @@ import Divider from '@mui/material/Divider';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import PianoIcon from '@mui/icons-material/Piano';
 
-export default function InstrumentList({ onChange}) {
+export default function InstrumentList({ onChange }) {
   const instrumentList = [
     {label: 'Piano', value: 'piano'},
     {label: 'Synth', value: 'synth'},
@@ -29,7 +29,6 @@ export default function InstrumentList({ onChange}) {
 
   // sets the instrument in the audio engine
   const handleSelect = (instrumentName) => {
-    console.log(`Selected instrument: ${instrumentName}`);
     setSelected(instrumentName);
     onChange(instrumentName);
   };
